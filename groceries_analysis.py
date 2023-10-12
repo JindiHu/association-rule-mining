@@ -10,7 +10,6 @@ from brute_forace import BruteForceAssociationRuleMiner
 
 
 def get_brute_force_execution_time(transactions):
-    print("running brute force to mine association rule...")
     start = time.time()
 
     bf = BruteForceAssociationRuleMiner(
@@ -22,7 +21,6 @@ def get_brute_force_execution_time(transactions):
     end = time.time()
 
     execution_time = end - start
-    print("execution time for Brute-force:", execution_time, "sec")
     return execution_time
 
 
@@ -42,12 +40,10 @@ def get_estimated_brute_force_execution_time(
     estimated_execution_time = c * (
             2 ** actual_num_of_unique_items) * actual_num_of_transactions
 
-    print("estimated execution time of Brute-force:", estimated_execution_time, "sec")
     return estimated_execution_time
 
 
 def get_fp_growth_execution_time(transactions):
-    print("running FP-Growth to mine association rule...")
     start = time.time()
 
     te = TransactionEncoder()
@@ -58,12 +54,10 @@ def get_fp_growth_execution_time(transactions):
 
     end = time.time()
     execution_time = end - start
-    print("execution time for FP-Growth:", execution_time, "sec")
     return execution_time
 
 
 def get_apriori_execution_time(transactions):
-    print("running Apriori to mine association rule...")
     start = time.time()
 
     te = TransactionEncoder()
@@ -74,7 +68,6 @@ def get_apriori_execution_time(transactions):
 
     end = time.time()
     execution_time = end - start
-    print("execution time for Apriori:", execution_time, "sec")
     return execution_time
 
 
@@ -109,13 +102,23 @@ def run_analysis_with_fix_num_transactions(fixed_transactions_count, unique_item
             apriori_execution_times.append(get_apriori_execution_time(transactions))
 
         execution_times["brute_force"].append(brute_force_execution_times)
+        avg = mean(brute_force_execution_times)
+        print("average execution time for Brute-force:",
+              avg, "sec (T=", fixed_transactions_count, " N=", item_counts, ")")
         execution_times_mean["brute_force"].append(mean(brute_force_execution_times))
 
         execution_times["fp_growth"].append(fp_growth_execution_times)
+        avg = mean(fp_growth_execution_times)
+        print("average execution time for FP-Growth:",
+              avg, "sec (T=", fixed_transactions_count, " N=", item_counts, ")")
         execution_times_mean["fp_growth"].append(mean(fp_growth_execution_times))
 
         execution_times["apriori"].append(apriori_execution_times)
+        avg = mean(apriori_execution_times)
+        print("average execution time for Apriori:",
+              avg, "sec (T=", fixed_transactions_count, " N=", item_counts, ")")
         execution_times_mean["apriori"].append(mean(apriori_execution_times))
+        print("*" * 20, "\n")
 
     fig, axs = plt.subplots(3)
     fig.suptitle("Fixed number of " + str(fixed_transactions_count) + " transactions")
@@ -141,6 +144,7 @@ def run_analysis_with_fix_num_transactions(fixed_transactions_count, unique_item
     plt.tight_layout()
     plt.savefig('./figures/fixed_num_transactions.png')
     plt.show()
+
 
 
 def run_analysis_with_fix_num_unique_items(fixed_unique_item_count, transactions_counts):
@@ -175,13 +179,23 @@ def run_analysis_with_fix_num_unique_items(fixed_unique_item_count, transactions
             apriori_execution_times.append(get_apriori_execution_time(transactions))
 
         execution_times["brute_force"].append(brute_force_execution_times)
+        avg = mean(brute_force_execution_times)
+        print("average execution time for Brute-force:",
+              avg, "sec (T=", transactions_count, " N=", fixed_unique_item_count, ")")
         execution_times_mean["brute_force"].append(mean(brute_force_execution_times))
 
         execution_times["fp_growth"].append(fp_growth_execution_times)
+        avg = mean(fp_growth_execution_times)
+        print("average execution time for FP-Growth:",
+              avg, "sec (T=", transactions_count, " N=", fixed_unique_item_count, ")")
         execution_times_mean["fp_growth"].append(mean(fp_growth_execution_times))
 
         execution_times["apriori"].append(apriori_execution_times)
+        avg = mean(apriori_execution_times)
+        print("average execution time for Apriori:",
+              avg, "sec (T=", transactions_count, " N=", fixed_unique_item_count, ")")
         execution_times_mean["apriori"].append(mean(apriori_execution_times))
+        print("*" * 20, "\n")
 
     fig, axs = plt.subplots(3)
     fig.suptitle("Fixed number of " + str(fixed_unique_item_count) + " unique items")
@@ -203,7 +217,7 @@ def run_analysis_with_fix_num_unique_items(fixed_unique_item_count, transactions
 
     for ax in axs.flat:
         ax.set(xlabel='Number of transactions', ylabel='Time (sec)')
-    plt.legend()
+
     plt.tight_layout()
     plt.savefig('./figures/fixed_num_unique_items.png')
     plt.show()

@@ -78,7 +78,7 @@ def run_analysis_with_fix_num_transactions(fixed_transactions_count, unique_item
 
     for index, item_counts in enumerate(unique_item_counts):
         df = pd.read_csv(
-            "./datasets/" + str(fixed_transactions_count) + "_transactions_" + str(item_counts) + "_unique_items.csv")
+            "./datasets/fixed_num_transactions/" + str(fixed_transactions_count) + "_transactions_" + str(item_counts) + "_unique_items.csv")
         # convert the string literal in Item column to a list
         df['Items'] = df['Items'].apply(ast.literal_eval)
         transactions = df["Items"]
@@ -154,7 +154,7 @@ def run_analysis_with_fix_num_unique_items(fixed_unique_item_count, transactions
 
     for index, transactions_count in enumerate(transactions_counts):
         df = pd.read_csv(
-            "./datasets/" + str(fixed_unique_item_count) + "_unique_items_" + str(transactions_count)
+            "./datasets/fixed_num_unique_items/" + str(fixed_unique_item_count) + "_unique_items_" + str(transactions_count)
             + "_transactions.csv")
         # convert the string literal in Item column to a list
         df['Items'] = df['Items'].apply(ast.literal_eval)

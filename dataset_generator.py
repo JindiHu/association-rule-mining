@@ -38,7 +38,7 @@ def generate_datasets_with_different_num_of_unique_items(fixed_num_transactions,
             transactions_sample["Items"].append(transaction)
 
         df = pd.DataFrame(transactions_sample, columns=['Items'])
-        df.to_csv(f'./datasets/{fixed_num_transactions}_transactions_{num_items}_unique_items.csv', index=False)
+        df.to_csv(f'./datasets/fixed_num_transactions/{fixed_num_transactions}_transactions_{num_items}_unique_items.csv', index=False)
     print("datasets with different number of unique items created successfully")
     print("*" * 20, "\n")
 
@@ -64,6 +64,6 @@ def generate_datasets_with_different_num_of_transactions(fixed_unique_item_count
             transactions_sample["Items"].append(transaction)
 
         df = pd.DataFrame(transactions_sample, columns=['Items'])
-        df.to_csv(f'./datasets/{fixed_unique_item_count}_unique_items_{num_transactions}_transactions.csv', index=False)
+        df.to_csv(f'./datasets/fixed_num_unique_items/{fixed_unique_item_count}_unique_items_{num_transactions}_transactions.csv', index=False)
     print("datasets with different number of unique items created successfully")
     print("*" * 20, "\n")

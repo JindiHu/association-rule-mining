@@ -60,6 +60,7 @@ steps:
 
 6. **View the Results**:
 
+   The script will display figures (collected under `/figures` directory) performance metrics in terms of execution time for different association rule mining algorithm.
 
 
 
